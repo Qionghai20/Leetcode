@@ -17,6 +17,17 @@ class Solution(object):
                 high_value = high_value + difference
         return high_value
 
+    # 动态规划解决
+    def maxProfit2(self, prices):
+        if len(prices) < 2:
+            return 0
+        nohold = 0    #第1天没有持股票的利润
+        hold = -prices[0]   #第1天持有股票的利润
+        for i in range(len(prices) - 1):
+            nohold = max(nohold, hold + prices[i + 1])
+            hold = max(nohold - prices[i + 1], hold)
+        return nohold
+
     def maxProfit_result(self, prices, result):
         for i in range(len(prices) - 1):
             difference = int(prices[i + 1])- int(prices[i])
